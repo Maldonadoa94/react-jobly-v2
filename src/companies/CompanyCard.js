@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
-import "../CompanyCard.css"
+import "../companies/CompanyCard.css"
 
 /** CompanyCard: renders a single company's information */
 

@@ -10,7 +10,13 @@ import "./SignupForm.css";
 
 function SignupForm({ signup }) {
   const navigate = useNavigate();
-  const initialState = {};
+  const initialState = {
+    username: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+  };
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState([]);
   console.log("In SignUpForm", "State:", formData);
@@ -34,10 +40,27 @@ function SignupForm({ signup }) {
       await signup(formData);
       navigate("/companies");
     } catch (err) {
-      setErrors((errors) => ([
-        ...errors,
-        ...err
-      ]));
+    //   setErrors((errors) => ([
+    //     ...errors,
+    //     ...err
+    //   ]));
+    //-----------------------------------------------------------------------------------------
+    //   const errorMessages = Array.isArray(err) ? err : [err.message || "An error occurred"];
+    //   setErrors(errorMessages);
+    //-----------------------------------------------------------------------------------------
+    console.error("Caught error:", err);
+
+    
+    let errorMessages;
+    if (Array.isArray(err)) {
+      errorMessages = err;
+    } else if (err.message) {
+      errorMessages = [err.message];
+    } else {
+      errorMessages = ["An unexpected error occurred"];
+    }
+
+    setErrors(errorMessages); 
     }
   }
 
@@ -53,6 +76,7 @@ function SignupForm({ signup }) {
                 name="username"
                 placeholder="Enter username"
                 onChange={handleChange}
+                value={formData.username}
               />
             </Form.Group>
             <Form.Group className="mt-2 mb-3">
@@ -62,6 +86,7 @@ function SignupForm({ signup }) {
                 type="password"
                 placeholder="Enter password"
                 onChange={handleChange}
+                value={formData.password}
               />
             </Form.Group>
             <Form.Group className="mt-2 mb-3">
@@ -70,6 +95,7 @@ function SignupForm({ signup }) {
                 name="firstName"
                 placeholder="Enter first name"
                 onChange={handleChange}
+                value={formData.firstName}
               />
             </Form.Group>
             <Form.Group className="mt-2 mb-3">
@@ -78,6 +104,7 @@ function SignupForm({ signup }) {
                 name="lastName"
                 placeholder="Enter last name"
                 onChange={handleChange}
+                value={formData.lastName}
               />
             </Form.Group>
             <Form.Group className="mt-2 mb-3">
@@ -86,6 +113,7 @@ function SignupForm({ signup }) {
                 name="email"
                 placeholder="Enter email"
                 onChange={handleChange}
+                value={formData.email}
               />
             </Form.Group>
             {errors.length !== 0 && <Alert errors={errors} />}

@@ -28,9 +28,17 @@ class JoblyApi {
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
-      console.error("API Error:", err.response);
-      let message = err.response.data.error.message;
-      throw Array.isArray(message) ? message : [message];
+      // console.error("API Error:", err.response);
+      // let message = err.response.data.error.message;
+      // throw Array.isArray(message) ? message : [message];
+      console.error("API Error:", err);
+      if (err.response) {
+        console.error("Response Error:", err.response);
+        let message = err.response.data.error.message;
+        throw Array.isArray(message) ? message : [message];
+      } else {
+        throw ["An unexpected error occurred."];
+      }
     }
   }
 
@@ -107,7 +115,7 @@ class JoblyApi {
 
   static async updateUser(userData, token) {
     this.token = token;
-    let { username, firstNae, lastName, email } = userData;
+    let { username, firstName, lastName, email } = userData;
     let res = await this.request(
       `users/${username}`,
       { firstName, lastName, email },
@@ -120,7 +128,7 @@ class JoblyApi {
 
 export default JoblyApi;
 
-// // for now, put token ("testuser" / "password" on class)
-// JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-//     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-//     "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+// for now, put token ("testuser" / "password" on class)
+JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";

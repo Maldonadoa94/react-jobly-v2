@@ -1,5 +1,5 @@
 import React from "react";
-import JobCard from "../JobCard";
+import JobCard from "../jobs/JobCard";
 
 /** JobCardList: displays jobs passed to it as a list of job cards */
 

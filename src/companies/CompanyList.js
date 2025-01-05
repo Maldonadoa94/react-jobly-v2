@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import CompanyCard from "../CompanyCard";
-import SearchForm from "./SearchForm";
-import JoblyApi from "./api";
-import "../CompanyCard.css";
+import CompanyCard from "../companies/CompanyCard";
+import SearchForm from "../SearchForm";
+import JoblyApi from "../api";
+import "../companies/CompanyCard.css";
 
 /** CompanyList: renders a list of Companies */
 

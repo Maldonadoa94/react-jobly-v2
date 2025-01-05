@@ -4,7 +4,7 @@ import Nav from "./Nav";
 import RoutesList from "./RoutesList";
 import userContext from "./userContext";
 import JoblyApi from "./api";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const DEFAULT_USER = { data: null, isLoggedIn: false };
@@ -23,7 +23,7 @@ function App() {
         if (token) {
           try {
             const storedToken = localStorage.getItem("token");
-            let { username } = jwt_decode(storedToken);
+            let { username } = jwtDecode(storedToken);
             let userResult = await JoblyApi.getUserData(
               username,
               storedToken
